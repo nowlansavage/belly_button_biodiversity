@@ -48,11 +48,29 @@ function makeBar(sample){
 };
 
 function makeTable(sample){
-
+	d3.json(file_path).then(function(data){
+		var samples =data['metadata'];
+		var selectedSamples =samples.filter(bug=>bug['id'] ==sample);
+		var currentSample =selectedSamples[0];
+		console.log(Object.entries(currentSample));
+		
+		d3.select('#sample-metadata').selectAll('div')
+			.data(Object.entries(currentSample))
+			.enter()
+			.append('div')
+			.classed('panel-body', true)
+			.text(function(d) {
+				console.log(d);
+				return `${d[0]}: ${d[1]}`
+			});
+			
+		
+		
+	});
 };
 
 function makeBubbleMap(sample){
-d3.json(file_path).then(function(data){
+	d3.json(file_path).then(function(data){
 		var samples =data['samples'];
 		var selectedSamples =samples.filter(bug=>bug['id'] ==sample);
 		var currentSample =selectedSamples[0];
