@@ -54,6 +54,14 @@ function makeTable(sample){
 		var currentSample =selectedSamples[0];
 		console.log(Object.entries(currentSample));
 		
+		//appends existing elements
+		d3.select('#sample-metadata').selectAll('.panel-body')
+			.data(Object.entries(currentSample))
+			.text(function(d) {
+				console.log(d);
+				return `${d[0]}: ${d[1]}`
+			});
+		//creates new elements
 		d3.select('#sample-metadata').selectAll('div')
 			.data(Object.entries(currentSample))
 			.enter()
