@@ -46,7 +46,7 @@ function makeBar(sample){
 		Plotly.newPlot('bar', data, layout);
 	});
 };
-
+//updates the table with metadata
 function makeTable(sample){
 	d3.json(file_path).then(function(data){
 		var samples =data['metadata'];
@@ -76,13 +76,14 @@ function makeTable(sample){
 		
 	});
 };
-
+//makes bubble map
 function makeBubbleMap(sample){
 	d3.json(file_path).then(function(data){
 		var samples =data['samples'];
 		var selectedSamples =samples.filter(bug=>bug['id'] ==sample);
+		//bubble map data by id
 		var currentSample =selectedSamples[0];
-		
+		//bubble map data
 		var traceBubble={
 			x: currentSample['otu_ids'],
 			y: currentSample['sample_values'],
