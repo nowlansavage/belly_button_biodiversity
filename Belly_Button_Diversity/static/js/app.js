@@ -28,8 +28,8 @@ function makeBar(sample){
 		var samples =data['samples'];
 		var selectedSamples =samples.filter(bug=>bug['id'] ==sample);
 		var currentSample =selectedSamples[0]
-		console.log(currentSample);
-		
+		//console.log(currentSample);
+
 		var traceBar={
 			x: currentSample['sample_values'].slice(0,10),
 			y: currentSample['otu_ids'].map(otu_id=>'OTU ' +otu_id).slice(0,10),
@@ -52,5 +52,27 @@ function makeTable(sample){
 };
 
 function makeBubbleMap(sample){
-
+d3.json(file_path).then(function(data){
+		var samples =data['samples'];
+		var selectedSamples =samples.filter(bug=>bug['id'] ==sample);
+		var currentSample =selectedSamples[0];
+		
+		var traceBubble={
+			x: currentSample['otu_ids'],
+			y: currentSample['sample_values'],
+			mode: 'markers',
+			text: currentSample['otu_labels'],
+			marker: {
+				size: currentSample['sample_values'].map(marker=>marker*15),
+				color: currentSample['otu_ids'],
+				sizemode: 'area'
+			}
+		};
+		var data =[traceBubble];
+		var layout ={
+			xaxis: { title: "OTU ID" }
+			
+		};
+		Plotly.newPlot('bubble', data, layout);
+	});
 };
